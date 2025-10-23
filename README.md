@@ -1,17 +1,19 @@
 # DiscrimiNAT instance with ENI-based routing
 
-DiscrimiNAT Firewall for egress filtering by FQDNs on AWS. Architecture with ENIs in VPCs for Private Subnets' route table entries to the Internet.
+HTTPS, TLS, SSH, SFTP micro-segmentation firewall to monitor and filter VPC egress by hostnames. Architecture with an ENI in the VPC for Private Subnet's route table entries to the Internet. See [reference architectures here](https://chasersystems.com/docs/discriminat/aws/reference-architectures/).
 
-`deployment-with-vpc.json`: Example deployment with VPC and Subnets included.
+`1az_new-vpc.json`: A single DiscrimiNAT instance in High Availability in one AZ in a completely new VPC (also deployed by this stack).
 
-`demo-environment.json`: Example deployment with two VMs for demo included with a VPC and Subnets like above.
+`1az_retrofit.json`: A single DiscrimiNAT instance in High Availability in one AZ in an existing VPC.
 
-## The Region2AMI JSON key
+For multi-AZ, load-balanced and auto-scaling deployment, see https://github.com/ChaserSystems/cloudformation-aws-discriminat-gwlb .
 
-The templates include a `Region2AMI` key under `Mappings`. This includes a map of AMI IDs to AWS Regions, and will be updated from time to time.
+## Map of AMI IDs
+
+The templates include a `Region2PaygAmi` key (or `Region2ByolAmi` if using an enterprise licence) under `Mappings`. This includes a map of AMI IDs to AWS Regions, and will be updated as per [our updates policy](https://chasersystems.com/discriminat/faq/#what-about-images-security-updates).
 
 > [!IMPORTANT]\
-> If you wish to always run the latest version of DiscrimiNAT, please subscribe to the changes in this repository by clicking Watch -> Custom -> Releases.
+> If you wish to always run the latest version of DiscrimiNAT, please subscribe to the changes in this repository by clicking Watch -> Custom -> Releases -> Apply.
 
 ## Documentation
 
