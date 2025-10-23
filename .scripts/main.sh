@@ -16,10 +16,11 @@ cp .components/1az_new-vpc.json 1az_new-vpc.json
 
 ## 1az retrofit
 $myjq '
-  .Parameters.PublicSubnet = {"Type": "AWS::EC2::Subnet::Id"} |
-  .Parameters.PrivateSubnet = {"Type": "AWS::EC2::Subnet::Id"} |
-  .Parameters.VPC = {"Type": "AWS::EC2::VPC::Id"} |
-  .Parameters.AvailabilityZone = {"Type": "AWS::EC2::AvailabilityZone::Name"} |
+  .Parameters.PublicSubnet = {"Description": "(existing)", "Type": "AWS::EC2::Subnet::Id"} |
+  .Parameters.PrivateSubnet = {"Description": "(existing)", "Type": "AWS::EC2::Subnet::Id"} |
+  .Parameters.VPC = {"Description": "(existing)", "Type": "AWS::EC2::VPC::Id"} |
+  .Parameters.AvailabilityZone = {"Description": "(of PublicSubnet)", "Type": "AWS::EC2::AvailabilityZone::Name"} |
+  .Parameters.VpcCidr.Description = "(existing)" |
   .Parameters.NewEIPs.Default = "no"
   ' \
   1az_new-vpc.json > ${_tmpdir}/1az_r_01.json
@@ -43,7 +44,6 @@ $myjq 'del(
   .Resources.PublicRoute,
   .Resources.PublicRouteTable,
   .Parameters.VpcCidr.Default,
-  .Parameters.VpcCidr.Description,
   .Resources.DiscrimiNATRouteAssociation,
   .Resources.PrivateSubnetDefaultRoute,
   .Resources.DiscrimiNATTargetGroup,
