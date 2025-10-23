@@ -580,7 +580,7 @@
           {
             "Key": "Name",
             "Value": {
-              "Fn::Sub": "DiscrimiNAT1-${AWS::StackName}"
+              "Fn::Sub": "DiscrimiNAT-${AWS::StackName}"
             }
           },
           {
@@ -829,7 +829,7 @@
           {
             "Key": "Name",
             "Value": {
-              "Fn::Sub": "Private1-${AWS::StackName}"
+              "Fn::Sub": "Private-${AWS::StackName}"
             }
           }
         ],
@@ -905,7 +905,7 @@
           {
             "Key": "Name",
             "Value": {
-              "Fn::Sub": "Private1-${AWS::StackName}"
+              "Fn::Sub": "Private-${AWS::StackName}"
             }
           }
         ],
