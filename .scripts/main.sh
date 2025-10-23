@@ -19,19 +19,18 @@ $myjq '
   .Parameters.PublicSubnet = {"Type": "AWS::EC2::Subnet::Id"} |
   .Parameters.PrivateSubnet = {"Type": "AWS::EC2::Subnet::Id"} |
   .Parameters.VPC = {"Type": "AWS::EC2::VPC::Id"} |
+  .Parameters.AvailabilityZone = {"Type": "AWS::EC2::AvailabilityZone::Name"} |
   .Parameters.NewEIPs.Default = "no"
   ' \
   1az_new-vpc.json > ${_tmpdir}/1az_r_01.json
 
-# $myjq '
-#   .Metadata."AWS::CloudFormation::Interface".ParameterGroups[0].Parameters =
-#   .Metadata."AWS::CloudFormation::Interface".ParameterGroups[0].Parameters[0:2] +
-#   ["VPC"] +
-#   .Metadata."AWS::CloudFormation::Interface".ParameterGroups[0].Parameters[2:]
-#   ' \
-#   ${_tmpdir}/1az_r_01.json > ${_tmpdir}/1az_r_02.json
-
-$myjq .  ${_tmpdir}/1az_r_01.json > ${_tmpdir}/1az_r_02.json
+$myjq '
+  .Metadata."AWS::CloudFormation::Interface".ParameterGroups[0].Parameters =
+  .Metadata."AWS::CloudFormation::Interface".ParameterGroups[0].Parameters[0:2] +
+  ["VPC", "AvailabilityZone"] +
+  .Metadata."AWS::CloudFormation::Interface".ParameterGroups[0].Parameters[2:]
+  ' \
+  ${_tmpdir}/1az_r_01.json > ${_tmpdir}/1az_r_02.json
 
 $myjq 'del(
   .Resources.VPC,
@@ -58,7 +57,8 @@ $myjq 'walk(if type == "object" and has("VpcId") then .VpcId = {"Ref": "VPC"} el
 
 $myjq '
   .Resources.DiscrimiNATNetworkInterface.Properties.SubnetId.Ref = "PublicSubnet" |
-  .Resources.EC2VPCEndpoint.Properties.SubnetIds[0].Ref = "PrivateSubnet"
+  .Resources.EC2VPCEndpoint.Properties.SubnetIds[0].Ref = "PrivateSubnet" |
+  .Resources.DiscrimiNATAutoScalingGroup.Properties.AvailabilityZones[0] = {"Ref": "AvailabilityZone"}
   ' \
   ${_tmpdir}/1az_r_04.json > ${_tmpdir}/1az_r_05.json
 
