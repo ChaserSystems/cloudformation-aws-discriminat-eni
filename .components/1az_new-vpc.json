@@ -61,6 +61,9 @@
       "ap-southeast-4": {
         "x86": "ami-0002d46457b6aa02e"
       },
+      "ap-southeast-5": {
+        "x86": "ami-089e2fa404ed2121e"
+      },
       "ap-southeast-6": {
         "x86": "ami-0681c307c35c3ce6c"
       },
@@ -158,6 +161,9 @@
       },
       "ap-southeast-4": {
         "x86": "ami-0fcac17362f448dcb"
+      },
+      "ap-southeast-5": {
+        "x86": "ami-0d54ced1ae6594394"
       },
       "ap-southeast-6": {
         "x86": "ami-048567276d5837c2b"
